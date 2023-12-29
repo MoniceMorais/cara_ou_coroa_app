@@ -1,31 +1,15 @@
-import 'dart:math';
-
-import 'package:cara_ou_coroa/Resultado.dart';
 import 'package:flutter/material.dart';
 
-class Jogar extends StatefulWidget {
-  const Jogar({super.key});
+class Resultado extends StatefulWidget {
+  final String moeda;
+
+  const Resultado({super.key, required this.moeda});
 
   @override
-  State<Jogar> createState() => _JogarState();
+  State<Resultado> createState() => _ResultadoState();
 }
 
-class _JogarState extends State<Jogar> {
-  void _exibirResultado() {
-    String imagem = "";
-    int caraOuCoroa = Random().nextInt(2);
-
-    imagem =
-        (caraOuCoroa == 1) ? "images/moeda_cara.png" : "images/moeda_coroa.png";
-
-    Navigator.push(
-      context,
-      MaterialPageRoute(
-        builder: (context) => Resultado(moeda: imagem),
-      ),
-    );
-  }
-
+class _ResultadoState extends State<Resultado> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -39,13 +23,15 @@ class _JogarState extends State<Jogar> {
             children: [
               Padding(
                 padding: const EdgeInsets.all(8.0),
-                child: Image.asset('images/logo.png'),
+                child: Image.asset(widget.moeda),
               ),
               GestureDetector(
-                onTap: _exibirResultado,
+                onTap: () {
+                  Navigator.pop(context);
+                },
                 child: Padding(
                   padding: const EdgeInsets.all(8.0),
-                  child: Image.asset('images/botao_jogar.png'),
+                  child: Image.asset('images/botao_voltar.png'),
                 ),
               ),
             ],
